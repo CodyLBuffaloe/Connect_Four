@@ -7,6 +7,12 @@ module Connect_Four
       @color = color
     end
   end
+  class Cell
+    attr_accessor :value
+    def initialize(value = "")
+      @value = value
+    end
+  end
 =begin
   class Board
     attr_accessor :grid
