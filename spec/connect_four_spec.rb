@@ -14,6 +14,7 @@ module Connect_Four
       end
     end
   end
+=begin
   describe Board do
     describe "#initialize" do
       context "when a new board is created" do
@@ -24,4 +25,5 @@ module Connect_Four
       end
     end
   end
+=end
 end
