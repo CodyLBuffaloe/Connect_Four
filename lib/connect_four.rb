@@ -13,15 +13,15 @@ module Connect_Four
       @value = value
     end
   end
-=begin
+
   class Board
     attr_accessor :grid
-    def initialze (grid = default_grid)
+    def initialze
+      @grid = Array.new(7){Array.new(6) {Cell.new}}
     end
-    private
     def default_grid
-      Array.new(7){Array.new(6)}
+
     end
   end
-=end
+
 end

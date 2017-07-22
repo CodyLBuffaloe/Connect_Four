@@ -14,6 +14,7 @@ module Connect_Four
       end
     end
   end
+
   describe Cell do
     describe "#initialize" do
       context "when a new cell is initialized" do
@@ -28,7 +29,7 @@ module Connect_Four
       end
     end
   end
-=begin
+
   describe Board do
     describe "#initialize" do
       context "when a new board is created" do
@@ -39,5 +40,5 @@ module Connect_Four
       end
     end
   end
-=end
+
 end
