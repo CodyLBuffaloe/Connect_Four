@@ -20,7 +20,7 @@ module Connect_Four
       context "when a new board is created" do
         it "is initialized with 7 columns and 6 rows" do
           b = Board.new
-          expect(b.grid.size).to eql(6)
+          expect(b.grid.size).to eql(7)
         end
       end
     end

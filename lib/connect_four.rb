@@ -10,11 +10,11 @@ module Connect_Four
 
   class Board
     attr_accessor :grid
-    def initialze
-      @grid = Array.new(7){Array.new(6) {Cell.new}}
+    def initialize(input = {})
+      @grid = input.fetch(:grid, default_grid)
     end
     def default_grid
-
+      Array.new(7){Array.new(6) {Cell.new}}
     end
   end
 
