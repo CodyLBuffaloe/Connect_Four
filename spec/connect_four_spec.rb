@@ -22,6 +22,12 @@ module Connect_Four
           b = Board.new
           expect(b.grid.size).to eql(7)
         end
+        it "creates six spaces in each row" do
+          b = Board.new
+          b.grid.each do |row|
+            expect(row.size).to eql(6)
+          end
+        end
       end
     end
   end
