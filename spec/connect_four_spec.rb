@@ -32,4 +32,14 @@ module Connect_Four
     end
   end
 
+  describe Game do
+    describe "#initialize" do
+      context "when a new game is created" do
+        it "creates a new Board" do
+          g = Game.new
+          expect(g.board).to_not eql(nil)
+        end
+      end
+    end
+  end
 end

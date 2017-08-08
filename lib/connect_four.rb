@@ -17,5 +17,10 @@ module Connect_Four
       Array.new(7){Array.new(6) {Cell.new}}
     end
   end
-
+  class Game
+    attr_accessor :board
+    def initialize
+      @board = Board.new
+    end
+  end
 end
