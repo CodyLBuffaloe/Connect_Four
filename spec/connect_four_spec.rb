@@ -39,6 +39,11 @@ module Connect_Four
           g = Game.new
           expect(g.board).to_not eql(nil)
         end
+        it "contains the player data" do
+          players = [{"Cody" => :yellow}, {"Erick" => :red}]
+          g = Game.new(players)
+          expect(g.players.size).to eql(2)
+        end
       end
     end
   end

@@ -18,9 +18,10 @@ module Connect_Four
     end
   end
   class Game
-    attr_accessor :board
-    def initialize
+    attr_accessor :board, :players
+    def initialize(players= ["Cody"])
       @board = Board.new
+      @players = players
     end
   end
 end
