@@ -15,17 +15,20 @@ module Connect_Four
     end
   end
 
+  describe Computer do
+  end
+
   describe Board do
     describe "#initialize" do
       context "when a new board is created" do
         it "is initialized with 7 columns and 6 rows" do
           b = Board.new
-          expect(b.grid.size).to eql(7)
+          expect(b.grid.size).to eql(6)
         end
         it "creates six spaces in each row" do
           b = Board.new
           b.grid.each do |row|
-            expect(row.size).to eql(6)
+            expect(row.size).to eql(7)
           end
         end
       end
