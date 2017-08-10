@@ -4,11 +4,11 @@ module Connect_Four
     describe "#initialize" do
       context "when a new player is created" do
         it "captures Player's name" do
-          me = Player.new("Cody", :red)
+          me = Player.new({name: "Cody", color: :red})
           expect(me.name).to eql("Cody")
         end
         it "captures Player's color" do
-          me = Player.new("Cody", :red)
+          me = Player.new({name: "Cody", color: :red})
           expect(me.color).to eql(:red)
         end
       end

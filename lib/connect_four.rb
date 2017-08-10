@@ -2,9 +2,9 @@ require_relative "cell"
 module Connect_Four
   class Player
     attr_accessor :name, :color
-    def initialize(name, color) #holds value of Player name and color
-      @name = name
-      @color = color
+    def initialize(input) #holds value of Player name and color
+      @name = input.fetch(:name)
+      @color = input.fetch(:color)
     end
   end
 
@@ -34,6 +34,9 @@ module Connect_Four
     def initialize(players= ["Cody"]) #initiates a new board and accepts an Array of player hashes
       @board = Board.new
       @players = players
+    end
+    def play
+
     end
   end
 end
