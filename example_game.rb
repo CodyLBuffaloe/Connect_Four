@@ -11,4 +11,4 @@ else
   puts "Hey, that isn't a name!"
 end
 players = [player1, player2]
-Connect_Four::Game.new(players)
+Connect_Four::Game.new(players).play

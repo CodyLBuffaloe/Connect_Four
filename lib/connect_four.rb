@@ -30,13 +30,15 @@ module Connect_Four
   end
 
   class Game
-    attr_accessor :board, :players
+    attr_accessor :board
     def initialize(players= ["Cody"]) #initiates a new board and accepts an Array of player hashes
       @board = Board.new
       @players = players
+      @player1 = players[0]
+      @player2 = players[1]
     end
     def play
-
+      puts "#{@player1.name}, please pick which row to drop your first piece: type a number, 1-7"
     end
   end
 end
