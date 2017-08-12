@@ -8,7 +8,7 @@ p2_name = gets.chomp
 if p2_name =~ /^[A-z]+$/
   player2 = Connect_Four::Player.new({name: p2_name, color: :red})
 else
-  puts "Hey, that isn't a name!"
+  puts "Hey, that isn't a name!" #Replace with Computer.new once that's built
 end
 players = [player1, player2]
 Connect_Four::Game.new(players).play
