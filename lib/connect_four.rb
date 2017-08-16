@@ -23,6 +23,12 @@ module Connect_Four
       grid[x][y]
     end
     def set_cell(column, value)
+      if column.last.empty?
+        x, y = column.last
+      else
+        column.last.pop until column.last.empty?
+        x, y = column.last
+      end
       get_cell(x, y).value = value
     end
     def display_formatted_grid #builds and displays formatted 6x7 empty grid or grid w/values of cells
@@ -45,20 +51,27 @@ module Connect_Four
     end
     def play
       puts "#{@player1.name}, please pick which column to drop your first piece: type a number, 1-7"
+      board.display_formatted_grid
       this_move = gets.chomp
       coloumn = translate_move_to_board(this_move)
-      board.set_cell(column, @player1.color)
+      board.set_cell(coloumn, @player1.color)
+      board.display_formatted_grid
+      puts "#{@player2.name}, now it is your turn! 1-7!"
+      next_move = gets.chomp
+      coloumn = translate_move_to_board(next_move)
+      board.set_cell(coloumn, @player2.color)
       board.display_formatted_grid
     end
     def translate_move_to_board(this_move)
       available_spaces = {
-        "1" => [[0,0], [1,0], [2,0], [3,0], [4,0], [5,0],
+        "1" => [[0,0], [1,0], [2,0], [3,0], [4,0], [5,0]],
         "2" => [[0,1], [1,1], [2,1], [3,1], [4,1], [5,1]],
         "3" => [[0,2], [1,2], [2,2], [3,2], [4,2], [5,2]],
         "4" => [[0,3], [1,3], [2,3], [3,3], [4,3], [5,3]],
         "5" => [[0,4], [1,4], [2,4], [3,4], [4,4], [5,4]],
         "6" => [[0,5], [1,5], [2,5], [3,5], [4,5], [5,5]],
-        "7" => [[0,6], [1,6], [2,6], [3,6], [4,6], [5,6]]}
+        "7" => [[0,6], [1,6], [2,6], [3,6], [4,6], [5,6]]
+        }
         available_spaces[this_move]
     end
   end
