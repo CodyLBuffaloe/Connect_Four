@@ -33,6 +33,25 @@ module Connect_Four
         end
       end
     end
+    describe "#get_cell" do
+      context "when method recieves x and y values" do
+        it "locates them within the grid" do
+          b = Board.new
+          b.grid[5][3] = "yellow"
+          expect(b.get_cell(5, 3)).to eql("yellow")
+        end
+        it "locates a specific cell" do
+          b = Board.new
+          b.grid[5][3] = "yellow"
+          expect(b.get_cell(5, 3)).to_not eql("_")
+        end
+        it "does not change the value of surrounding cells" do
+          b = Board.new
+          b.grid[5][3] = "red"
+          expect(b.get_cell(0,3).value).to eql("_")
+        end
+      end
+    end
   end
 
   describe Game do
@@ -46,6 +65,15 @@ module Connect_Four
           players = [{"Cody" => :yellow}, {"Erick" => :red}]
           g = Game.new(players)
           expect(g.players.size).to eql(2)
+        end
+      end
+    end
+    describe "#translate_move_to_board" do
+      context "when method receives move" do
+        it "chooses column from hash" do
+          g = Game.new
+          t_m = "4"
+          expect(g.translate_move_to_board(t_m)).to eql([[0,3], [1,3], [2,3], [3,3], [4,3], [5,3]])
         end
       end
     end

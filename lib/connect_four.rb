@@ -22,16 +22,16 @@ module Connect_Four
     def get_cell(x, y)
       grid[x][y]
     end
-    def set_cell(coloumn, value)
+    def set_cell(column, value)
       color = value.to_s
-      inverted_coloumn = coloumn.reverse!
-      inverted_coloumn.each do |space|
+      inverted_column = column.reverse!
+      inverted_column.each do |space|
         x, y = space
         open_space = get_cell(x, y).value
         if open_space == "_"
           open_space = color
         else
-          inverted_coloumn.pop(space)
+          inverted_column.pop(space)
         end
       end
     end
@@ -57,16 +57,16 @@ module Connect_Four
       puts "#{@player1.name}, please pick which column to drop your first piece: type a number, 1-7"
       board.display_formatted_grid
       this_move = gets.chomp
-      coloumn = translate_move_to_board(this_move)
-      board.set_cell(coloumn, @player1.color)
+      column = translate_move_to_board(this_move)
+      board.set_cell(column, @player1.color)
       board.display_formatted_grid
       puts "#{@player2.name}, now it is your turn! 1-7!"
       next_move = gets.chomp
-      coloumn = translate_move_to_board(next_move)
-      board.set_cell(coloumn, @player2.color)
+      column = translate_move_to_board(next_move)
+      board.set_cell(column, @player2.color)
       board.display_formatted_grid
     end
-    def translate_move_to_board(this_move)
+    def translate_move_to_board(this_move) #selects a column to evaluate
       available_spaces = {
         "1" => [[0,0], [1,0], [2,0], [3,0], [4,0], [5,0]],
         "2" => [[0,1], [1,1], [2,1], [3,1], [4,1], [5,1]],
