@@ -22,14 +22,18 @@ module Connect_Four
     def get_cell(x, y)
       grid[x][y]
     end
-    def set_cell(column, value)
-      if column.last.empty?
-        x, y = column.last
-      else
-        column.last.pop until column.last.empty?
-        x, y = column.last
+    def set_cell(coloumn, value)
+      color = value.to_s
+      inverted_coloumn = coloumn.reverse!
+      inverted_coloumn.each do |space|
+        x, y = space
+        open_space = get_cell(x, y).value
+        if open_space == "_"
+          open_space = color
+        else
+          inverted_coloumn.pop(space)
+        end
       end
-      get_cell(x, y).value = value
     end
     def display_formatted_grid #builds and displays formatted 6x7 empty grid or grid w/values of cells
       grid.each do |row|
