@@ -23,15 +23,16 @@ module Connect_Four
       grid[x][y]
     end
     def set_cell(column, value)
-      color = value.to_s
+      color = value
       inverted_column = column.reverse!
       inverted_column.each do |space|
+        puts "#{space}"
         x, y = space
+        puts "#{x}, #{y}"
         open_space = get_cell(x, y).value
+        puts "#{open_space}"
         if open_space == "_"
-          open_space = color
-        else
-          inverted_column.pop(space)
+          return get_cell(x, y).value = color
         end
       end
     end
