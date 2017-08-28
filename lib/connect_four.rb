@@ -19,18 +19,15 @@ module Connect_Four
     def initialize(input = {}) #fetches grid from #default_grid or builds grid from supplied data
       @grid = input.fetch(:grid, default_grid)
     end
-    def get_cell(x, y)
+    def get_cell(x, y) #retrieves the Cell object from @grid
       grid[x][y]
     end
-    def set_cell(column, value)
+    def set_cell(column, value) #reverses coloumn, calls #get_cell, if cell value is "_", replace w/player color
       color = value
       inverted_column = column.reverse!
       inverted_column.each do |space|
-        puts "#{space}"
         x, y = space
-        puts "#{x}, #{y}"
         open_space = get_cell(x, y).value
-        puts "#{open_space}"
         if open_space == "_"
           return get_cell(x, y).value = color
         end
