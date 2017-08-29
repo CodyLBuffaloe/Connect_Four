@@ -33,6 +33,9 @@ module Connect_Four
         end
       end
     end
+    def winning_moves
+      
+    end
     def display_formatted_grid #builds and displays formatted 6x7 empty grid or grid w/values of cells
       grid.each do |row|
         puts row.map{|cell| cell.value.empty? ? "_" : cell.value}.join(" ")
@@ -52,17 +55,21 @@ module Connect_Four
       @player2 = players[1]
     end
     def play
-      puts "#{@player1.name}, please pick which column to drop your first piece: type a number, 1-7"
+      guesses = 0
+      while guesses < 42
+      if guesses.even?
+        current_player = @player1
+      else
+        current_player = @player2
+      end
+      puts "#{current_player.name}, please pick which column to drop your first piece: type a number, 1-7"
       board.display_formatted_grid
       this_move = gets.chomp
       column = translate_move_to_board(this_move)
-      board.set_cell(column, @player1.color)
+      board.set_cell(column, current_player.color)
       board.display_formatted_grid
-      puts "#{@player2.name}, now it is your turn! 1-7!"
-      next_move = gets.chomp
-      column = translate_move_to_board(next_move)
-      board.set_cell(column, @player2.color)
-      board.display_formatted_grid
+      guesses += 1
+      end
     end
     def translate_move_to_board(this_move) #selects a column to evaluate
       available_spaces = {
