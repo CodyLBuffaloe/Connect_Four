@@ -36,25 +36,25 @@ module Connect_Four
     def winner?
       yellow_count = 0
       red_count = 0
-      while yellow_count != 4 || red_count != 4
-        winning_moves.each do |winning_move|
-          colors = extract_winning_values(winning_move)
-          colors.each do |color|
-            next if color == "_"
-            if color == :yellow
-              yellow_count += 1
-              red_count = 0
-            elsif color == :red
-              red_count += 1
-              yellow_count = 0
-            end
+      winning_moves.each do |winning_move|
+        row = extract_winning_values(winning_move)
+        row.each do |cell|
+          next if cell.empty?
+          if cell == :yellow && yellow_count < 4
+            red_count = 0
+            yellow_count += 1
+          elsif cell == :red && red_count < 4
+            yellow_count = 0
+            red_count += 1
           end
         end
       end
       if yellow_count == 4
-        return true, :yellow
+        puts "Yellow wins!"
+        return true
       elsif red_count == 4
-        return true, :red
+        puts "Red wins!"
+        return true
       end
       false
     end
@@ -84,20 +84,23 @@ module Connect_Four
     end
     def play
       guesses = 0
-      while guesses < 42
-      if guesses.even?
-        current_player = @player1
-      else
-        current_player = @player2
-      end
-      puts "#{current_player.name}, please pick which column to drop your first piece: type a number, 1-7"
-      board.display_formatted_grid
-      this_move = gets.chomp
-      column = translate_move_to_board(this_move)
-      board.set_cell(column, current_player.color)
-      board.display_formatted_grid
-      guesses += 1
-      puts "#{board.winner?}"
+      while true
+        if guesses.even?
+          current_player = @player1
+        else
+          current_player = @player2
+        end
+        puts "#{current_player.name}, please pick which column to drop your first piece: type a number, 1-7"
+        board.display_formatted_grid
+        this_move = gets.chomp
+        column = translate_move_to_board(this_move)
+        board.set_cell(column, current_player.color)
+        board.display_formatted_grid
+        guesses += 1
+        if board.winner?
+          puts "Congrats, #{current_player.name}, you won! Yay!"
+          return false
+        end
       end
     end
     def translate_move_to_board(this_move) #selects a column to evaluate
