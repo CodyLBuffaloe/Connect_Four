@@ -33,8 +33,36 @@ module Connect_Four
         end
       end
     end
+    def winner?
+      yellow_count = 0
+      red_count = 0
+      while yellow_count != 4 || red_count != 4
+        winning_moves.each do |winning_move|
+          colors = extract_winning_values(winning_move)
+          colors.each do |color|
+            next if color == "_"
+            if color == :yellow
+              yellow_count += 1
+              red_count = 0
+            elsif color == :red
+              red_count += 1
+              yellow_count = 0
+            end
+          end
+        end
+      end
+      if yellow_count == 4
+        return true, :yellow
+      elsif red_count == 4
+        return true, :red
+      end
+      false
+    end
+    def extract_winning_values(winning_moves)
+      winning_moves.map{|cell| cell.value}
+    end
     def winning_moves
-      
+      grid + grid.transpose
     end
     def display_formatted_grid #builds and displays formatted 6x7 empty grid or grid w/values of cells
       grid.each do |row|
@@ -69,6 +97,7 @@ module Connect_Four
       board.set_cell(column, current_player.color)
       board.display_formatted_grid
       guesses += 1
+      puts "#{board.winner?}"
       end
     end
     def translate_move_to_board(this_move) #selects a column to evaluate
