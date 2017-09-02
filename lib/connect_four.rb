@@ -36,16 +36,17 @@ module Connect_Four
     def winner?
       yellow_count = 0
       red_count = 0
+      row = []
       winning_moves.each do |winning_move|
-        row = extract_winning_values(winning_move)
+        row << extract_winning_values(winning_move)
         row.each do |cell|
-          next if cell.empty?
+          next if cell == "_"
           if cell == :yellow && yellow_count < 4
-            red_count = 0
             yellow_count += 1
+            red_count = 0
           elsif cell == :red && red_count < 4
-            yellow_count = 0
             red_count += 1
+            yellow_count = 0
           end
         end
       end
