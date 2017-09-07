@@ -33,32 +33,39 @@ module Connect_Four
         end
       end
     end
-    def winner?
+    def chip_count (value_rows)
       yellow_count = 0
       red_count = 0
-      row = []
-      winning_moves.each do |winning_move|
-        row << extract_winning_values(winning_move)
-        row.each do |cell|
+      while yellow_count != 4 || red_count != 4 #needs another loop
+        value_rows.each do |cell|
           next if cell == "_"
-          if cell == :yellow && yellow_count < 4
+          if cell == :yellow
             yellow_count += 1
             red_count = 0
-          elsif cell == :red && red_count < 4
+          elsif cell == :red
             red_count += 1
             yellow_count = 0
           end
         end
+        if yellow_count == 4
+          return "Y"
+        elsif red_count == 4
+          return "R"
+        end
       end
-      if yellow_count == 4
-        puts "Yellow wins!"
-        return true
-      elsif red_count == 4
-        puts "Red wins!"
-        return true
-      end
-      false
     end
+    def winner?
+      value_rows = []
+      winning_moves.each do |moveset|
+        value_rows << extract_winning_values(moveset)
+      end
+      if chip_count(value_rows) == "Y" || chip_count(value_rows) == "R"
+        return true
+      else
+        return false
+      end
+    end
+
     def extract_winning_values(winning_moves)
       winning_moves.map{|cell| cell.value}
     end
