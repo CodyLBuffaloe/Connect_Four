@@ -36,40 +36,47 @@ module Connect_Four
     def chip_count (value_rows)
       yellow_count = 0
       red_count = 0
-      while yellow_count != 4 || red_count != 4 #needs another loop
-        value_rows.each do |cell|
-          next if cell == "_"
-          if cell == :yellow
-            yellow_count += 1
-            red_count = 0
-          elsif cell == :red
-            red_count += 1
-            yellow_count = 0
+        value_rows.each do |row|
+          row.each do |cell|
+            next if cell == "_"
+            if cell == :yellow
+              yellow_count += 1
+              red_count = 0
+              puts "#{yellow_count}"
+              if yellow_count == 4
+                return "Y"
+              end
+            end
+            if cell == :red
+              red_count += 1
+              yellow_count = 0
+              puts "#{red_count}"
+              if red_count == 4
+                return "R"
+              end
+            end
           end
         end
-        if yellow_count == 4
-          return "Y"
-        elsif red_count == 4
-          return "R"
-        end
-      end
     end
     def winner?
       value_rows = []
       winning_moves.each do |moveset|
         value_rows << extract_winning_values(moveset)
       end
+      value_rows.each do |row|
+        puts "#{row}"
+      end
       if chip_count(value_rows) == "Y" || chip_count(value_rows) == "R"
-        return true
+        true
       else
-        return false
+        false
       end
     end
 
-    def extract_winning_values(winning_moves)
+    def extract_winning_values(winning_moves) #locates the value in each Cell object
       winning_moves.map{|cell| cell.value}
     end
-    def winning_moves
+    def winning_moves #currently set so that the columns and rows(transpose) will be available
       grid + grid.transpose
     end
     def display_formatted_grid #builds and displays formatted 6x7 empty grid or grid w/values of cells
@@ -104,11 +111,11 @@ module Connect_Four
         column = translate_move_to_board(this_move)
         board.set_cell(column, current_player.color)
         board.display_formatted_grid
-        guesses += 1
         if board.winner?
           puts "Congrats, #{current_player.name}, you won! Yay!"
           return false
         end
+        guesses += 1
       end
     end
     def translate_move_to_board(this_move) #selects a column to evaluate
