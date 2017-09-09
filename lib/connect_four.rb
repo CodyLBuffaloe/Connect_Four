@@ -36,21 +36,28 @@ module Connect_Four
     def chip_count (value_rows)
       yellow_count = 0
       red_count = 0
-        value_rows.each do |row|
+      value_rows.each do |row|
+        next if row.count("_") == 7
+        if row.size == 6 && row.count("_") == 6
+          next
+        end
+        puts "#{row}"
           row.each do |cell|
             next if cell == "_"
-            if cell == :yellow
+            if cell == :Y
               yellow_count += 1
               red_count = 0
-              puts "#{yellow_count}"
+              puts "#{yellow_count}Y"
+              puts "#{red_count}R"
               if yellow_count == 4
                 return "Y"
               end
             end
-            if cell == :red
+            if cell == :R
               red_count += 1
               yellow_count = 0
-              puts "#{red_count}"
+              puts "#{red_count}R"
+              puts "#{yellow_count}Y"
               if red_count == 4
                 return "R"
               end
@@ -63,16 +70,13 @@ module Connect_Four
       winning_moves.each do |moveset|
         value_rows << extract_winning_values(moveset)
       end
-      value_rows.each do |row|
-        puts "#{row}"
-      end
-      if chip_count(value_rows) == "Y" || chip_count(value_rows) == "R"
-        true
-      else
-        false
-      end
+      chip_count(value_rows)
+        if chip_count(value_rows) == "Y" || chip_count(value_rows) == "R"
+          return true
+        else
+          return false
+        end
     end
-
     def extract_winning_values(winning_moves) #locates the value in each Cell object
       winning_moves.map{|cell| cell.value}
     end
@@ -132,4 +136,3 @@ module Connect_Four
     end
   end
 end
-
