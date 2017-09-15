@@ -94,10 +94,9 @@ module Connect_Four
   end
 
   class Game
-    attr_accessor :board, :players
+    attr_accessor :board
     def initialize(players= ["Cody"]) #initiates a new board and accepts an Array of player hashes
       @board = Board.new
-      @players = players
       @player1 = players[0]
       @player2 = players[1]
     end
@@ -115,9 +114,11 @@ module Connect_Four
         column = translate_move_to_board(this_move)
         board.set_cell(column, current_player.color)
         board.display_formatted_grid
-        if board.winner?
-          puts "Congrats, #{current_player.name}, you won! Yay!"
-          return false
+        if guesses >= 6
+          if board.winner?
+            puts "Congrats, #{current_player.name}, you won! Yay!"
+            return false
+          end
         end
         guesses += 1
       end
