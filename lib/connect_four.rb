@@ -44,22 +44,24 @@ module Connect_Four
         puts "#{row}"
           row.each do |cell|
             next if cell == "_"
-            if cell == :Y
-              yellow_count += 1
-              red_count = 0
-              puts "#{yellow_count}Y"
-              puts "#{red_count}R"
-              if yellow_count == 4
-                return "Y"
+            if cell == :Y || cell == :R
+              if cell == :Y
+                yellow_count += 1
+                red_count = 0
+                puts "#{yellow_count}Y"
+                puts "#{red_count}R"
+                if yellow_count == 4
+                  return "Y"
+                end
               end
-            end
-            if cell == :R
-              red_count += 1
-              yellow_count = 0
-              puts "#{red_count}R"
-              puts "#{yellow_count}Y"
-              if red_count == 4
-                return "R"
+              if cell == :R
+                red_count += 1
+                yellow_count = 0
+                puts "#{red_count}R"
+                puts "#{yellow_count}Y"
+                if red_count == 4
+                  return "R"
+                end
               end
             end
           end
