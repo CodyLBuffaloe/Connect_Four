@@ -36,7 +36,7 @@ module Connect_Four
     def chip_count (value_rows)
       yellow_count = 0
       red_count = 0
-      value_rows.each do |row|
+      value_rows.reverse.each do |row|
         next if row.count("_") == 7
         if row.size == 6 && row.count("_") == 6
           next
@@ -65,7 +65,9 @@ module Connect_Four
               end
             end
           end
-        end
+        yellow_count = 0
+        red_count = 0
+      end
     end
     def winner?
       value_rows = []
