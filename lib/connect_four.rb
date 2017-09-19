@@ -43,7 +43,6 @@ module Connect_Four
         end
         puts "#{row}"
           row.each do |cell|
-            next if cell == "_"
             if cell == :Y || cell == :R
               if cell == :Y
                 yellow_count += 1
@@ -63,6 +62,9 @@ module Connect_Four
                   return "R"
                 end
               end
+            elsif cell == "_"
+              yellow_count = 0
+              red_count = 0
             end
           end
         yellow_count = 0
