@@ -33,9 +33,30 @@ module Connect_Four
         end
       end
     end
+    def find_diagonals(value_rows)
+      value_rows.each_with_index do |row, y|
+        row.each_with_index do |cell, x|
+          if cell == :Y || cell == :R
+            if cell == :Y
+              if cell == value_rows[(y + 1)][(x + 1)] || cell == value_rows[(y - 1)][(x - 1)]
+                if cell == value_rows[(y + 2)][(x + 2)] || cell == value_rows[(y - 2)][(x - 2)]
+                  if cell == value_rows[(y + 3)][(x + 3)] || cell == value_rows[(y - 3)][(x - 3)]
+                    return "Y"
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
     def chip_count (value_rows)
       yellow_count = 0
       red_count = 0
+      find_diagonals(value_rows)
+      if find_diagonals(value_rows) == "Y"
+        return "Y"
+      end
       value_rows.reverse.each do |row|
         next if row.count("_") == 7
         if row.size == 6 && row.count("_") == 6
