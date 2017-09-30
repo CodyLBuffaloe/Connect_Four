@@ -34,20 +34,96 @@ module Connect_Four
       end
     end
     def find_diagonals(value_rows)
-      value_rows.each_with_index do |row, y|
+      yellow_count = 0
+      red_count = 0
+      value_rows.reverse.each_with_index do |row, y|
         row.each_with_index do |cell, x|
-          if cell == :Y || cell == :R
-            if cell == :Y
-              if cell == value_rows[(y + 1)][(x + 1)] || cell == value_rows[(y - 1)][(x - 1)]
-                if cell == value_rows[(y + 2)][(x + 2)] || cell == value_rows[(y - 2)][(x - 2)]
-                  if cell == value_rows[(y + 3)][(x + 3)] || cell == value_rows[(y - 3)][(x - 3)]
-                    return "Y"
-                  end
+          if cell == :Y
+            puts "Inside both loops, first if statement"
+            yellow_count += 1
+            if cell == value_rows[(y + 1)][(x + 1)]
+              puts "Comparing #{cell} to #{value_rows[(y -1)][(x - 1)]}, second level "
+              yellow_count += 1
+              red_count = 0
+              if cell == value_rows[(y + 2)][(x + 2)]
+                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, third level, next one should be a win"
+                yellow_count += 1
+                red_count = 0
+                if cell == value_rows[(y + 3)][(x + 3)]
+                  puts "Here we are, it's a winner"
+                  yellow_count += 1
+                  red_count = 0
+                  return yellow_count
                 end
               end
             end
+            if cell == value_rows[(y - 1)][(x - 1)]
+              puts "Comparing #{cell} to #{value_rows[(y - 1)][(x - 1)]}, descending second level"
+              yellow_count += 1
+              red_count = 0
+              if cell == value_rows[(y - 2)][(x - 2)]
+                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, descending third level, next one should win"
+                yellow_count += 1
+                red_count = 0
+                if cell == value_rows[(y - 3)][(x - 3)]
+                  puts "Here we are, it's a bingo!"
+                  yellow_count += 1
+                  red_count = 0
+                  return yellow_count
+                end
+              end
+            end
+          elsif cell == "_"
+            yellow_count = 0
+            red_count = 0
+          end
+          if cell == :R
+            puts "Inside both loops, first if statement"
+            red_count += 1
+            yellow_count = 0
+            if cell == value_rows[(y + 1)][(x + 1)]
+              puts "Comparing #{cell} to #{value_rows[(y -1)][(x - 1)]}, second level "
+              red_count += 1
+              yellow_count = 0
+              if cell == value_rows[(y + 2)][(x + 2)]
+                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, third level, next one should be a win"
+                red_count += 1
+                yellow_count = 0
+                if cell == value_rows[(y + 3)][(x + 3)]
+                  puts "Here we are, it's a winner"
+                  red_count += 1
+                  yellow_count = 0
+                  return red_count
+                end
+              end
+            end
+            if cell == value_rows[(y - 1)][(x - 1)]
+              puts "Comparing #{cell} to #{value_rows[(y - 1)][(x - 1)]}, descending second level"
+              red_count += 1
+              yellow_count = 0
+              if cell == value_rows[(y - 2)][(x - 2)]
+                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, descending third level, next one should win"
+                red_count += 1
+                yellow_count = 0
+                if cell == value_rows[(y - 3)][(x - 3)]
+                  puts "Here we are, it's a bingo!"
+                  red_count += 1
+                  yellow_count = 0
+                  return red_count
+                end
+              end
+            end
+          elsif cell == "_"
+            yellow_count = 0
+            red_count = 0
           end
         end
+      end
+      if yellow_count == 4
+        return "Y"
+      end
+      if red_count == 4
+        return "R"
       end
     end
     def chip_count (value_rows)
@@ -56,6 +132,8 @@ module Connect_Four
       find_diagonals(value_rows)
       if find_diagonals(value_rows) == "Y"
         return "Y"
+      elsif find_diagonals(value_rows) == "R"
+        return "R"
       end
       value_rows.reverse.each do |row|
         next if row.count("_") == 7
