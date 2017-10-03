@@ -36,40 +36,42 @@ module Connect_Four
     def find_diagonals(value_rows)
       yellow_count = 0
       red_count = 0
-      value_rows.reverse.each_with_index do |row, y|
+      value_rows.each_with_index do |row, y|
+        puts "#{row}, #{y}"
         row.each_with_index do |cell, x|
+          puts "#{cell}, #{x}"
           if cell == :Y
             puts "Inside both loops, first if statement"
             yellow_count += 1
             if cell == value_rows[(y + 1)][(x + 1)]
-              puts "Comparing #{cell} to #{value_rows[(y -1)][(x - 1)]}, second level "
+              puts "Comparing #{cell},[#{y},#{x}], to #{value_rows[(y + 1)][(x + 1)]}, [#{(y +1)}, #{(x +1)}], second level "
               yellow_count += 1
               red_count = 0
               if cell == value_rows[(y + 2)][(x + 2)]
-                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, third level, next one should be a win"
+                puts "Comparing #{cell},[#{y},#{x}], to #{value_rows[(y + 2)][(x + 2)]}, [#{(y +2)}, #{(x +2)}], third level, next one should be a win"
                 yellow_count += 1
                 red_count = 0
                 if cell == value_rows[(y + 3)][(x + 3)]
-                  puts "Here we are, it's a winner"
+                  puts "Here we are, it's a winner #{cell},[#{y},#{x}], to #{value_rows[(y + 3)][(x + 3)]}, [#{(y +3)}, #{(x +3)}]"
                   yellow_count += 1
                   red_count = 0
-                  return yellow_count
+                  return "Y"
                 end
               end
             end
-            if cell == value_rows[(y - 1)][(x - 1)]
-              puts "Comparing #{cell} to #{value_rows[(y - 1)][(x - 1)]}, descending second level"
+            if cell == value_rows[(y - 1)][(x + 1)]
+              puts "Comparing #{cell},[#{y},#{x}], to #{value_rows[(y -1)][(x +1)]}, [#{(y -1)}, #{(x +1)}], descending second level"
               yellow_count += 1
               red_count = 0
-              if cell == value_rows[(y - 2)][(x - 2)]
-                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, descending third level, next one should win"
+              if cell == value_rows[(y - 2)][(x + 2)]
+                puts "Comparing #{cell},[#{y},#{x}], to #{value_rows[(y -2)][(x + 2)]}, [#{(y -2)}, #{(x + 2)}], descending third level, next one should win"
                 yellow_count += 1
                 red_count = 0
-                if cell == value_rows[(y - 3)][(x - 3)]
-                  puts "Here we are, it's a bingo!"
+                if cell == value_rows[(y - 3)][(x + 3)]
+                  puts "Here we are, it's a bingo!#{cell},[#{y},#{x}], to #{value_rows[(y - 3)][(x + 3)]}, [#{(y - 3)}, #{(x + 3)}]"
                   yellow_count += 1
                   red_count = 0
-                  return yellow_count
+                  return "Y"
                 end
               end
             end
@@ -82,34 +84,34 @@ module Connect_Four
             red_count += 1
             yellow_count = 0
             if cell == value_rows[(y + 1)][(x + 1)]
-              puts "Comparing #{cell} to #{value_rows[(y -1)][(x - 1)]}, second level "
+              puts "Comparing #{cell}, [#{y}, #{x}], to #{value_rows[(y +1)][(x + 1)]},[#{(y+1)}, #{(x+1)}], second level "
               red_count += 1
               yellow_count = 0
               if cell == value_rows[(y + 2)][(x + 2)]
-                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, third level, next one should be a win"
+                puts "Comparing #{cell}, [#{y}#{x}], to #{value_rows[(y + 2)][(x + 2)]},[#{(y+2)}, #{(x+2)}], third level, next one should be a win"
                 red_count += 1
                 yellow_count = 0
                 if cell == value_rows[(y + 3)][(x + 3)]
-                  puts "Here we are, it's a winner"
+                  puts "Here we are, it's a winner#{cell}, [#{y},#{x}], to #{value_rows[(y + 3)][(x + 3)]},[#{(y+3)}, #{(x+3)}],"
                   red_count += 1
                   yellow_count = 0
-                  return red_count
+                  return "R"
                 end
               end
             end
-            if cell == value_rows[(y - 1)][(x - 1)]
-              puts "Comparing #{cell} to #{value_rows[(y - 1)][(x - 1)]}, descending second level"
+            if cell == value_rows[(y - 1)][(x + 1)]
+              puts "Comparing #{cell}, [#{y}, #{x}], to #{value_rows[(y - 1)][(x + 1)]}, [#{(y - 1)}, #{(x + 1)}], descending second level"
               red_count += 1
               yellow_count = 0
-              if cell == value_rows[(y - 2)][(x - 2)]
-                puts "Comparing #{cell} to #{value_rows[(y - 2)][(x - 2)]}, descending third level, next one should win"
+              if cell == value_rows[(y - 2)][(x + 2)]
+                puts "Comparing #{cell},[#{y},#{x}], to #{value_rows[(y - 2)][(x + 2)]}, [#{(y - 2)}, #{(x + 2)}], descending third level, next one should win"
                 red_count += 1
                 yellow_count = 0
-                if cell == value_rows[(y - 3)][(x - 3)]
-                  puts "Here we are, it's a bingo!"
+                if cell == value_rows[(y - 3)][(x + 3)]
+                  puts "Here we are, it's a bingo!#{cell},[#{y}, #{x}], to #{value_rows[(y - 3)][(x + 3)]}, [#{(y - 3)}, #{(x + 3)}],"
                   red_count += 1
                   yellow_count = 0
-                  return red_count
+                  return "R"
                 end
               end
             end
@@ -140,14 +142,14 @@ module Connect_Four
         if row.size == 6 && row.count("_") == 6
           next
         end
-        puts "#{row}"
+
           row.each do |cell|
             if cell == :Y || cell == :R
               if cell == :Y
                 yellow_count += 1
                 red_count = 0
-                puts "#{yellow_count}Y"
-                puts "#{red_count}R"
+
+
                 if yellow_count == 4
                   return "Y"
                 end
@@ -155,8 +157,7 @@ module Connect_Four
               if cell == :R
                 red_count += 1
                 yellow_count = 0
-                puts "#{red_count}R"
-                puts "#{yellow_count}Y"
+
                 if red_count == 4
                   return "R"
                 end
