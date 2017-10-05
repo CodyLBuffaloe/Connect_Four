@@ -112,22 +112,16 @@ module Connect_Four
         return "R"
       end
     end
-    def chip_count (value_rows)
+    def chip_count (value_grid)
       yellow_count = 0
       red_count = 0
-      find_diagonals(value_rows)
-      if find_diagonals(value_rows) == "Y"
-        return "Y"
-      elsif find_diagonals(value_rows) == "R"
-        return "R"
-      end
-      value_rows.reverse.each do |row|
+
+      value_grid.reverse.each do |row|
         next if row.count("_") == 7
         if row.size == 6 && row.count("_") == 6
           next
         end
-
-          row.each do |cell|
+        row.each do |cell|
             if cell == :Y || cell == :R
               if cell == :Y
                 yellow_count += 1
@@ -147,25 +141,34 @@ module Connect_Four
               yellow_count = 0
               red_count = 0
             end
-          end
+        end
         yellow_count = 0
         red_count = 0
       end
     end
     def winner?
-      value_rows = []
-      winning_moves.each do |moveset|
-        value_rows << extract_winning_values(moveset)
-      end
-      chip_count(value_rows)
-        if chip_count(value_rows) == "Y" || chip_count(value_rows) == "R"
+      value_grid = make_winning_values_readable
+      chip_count(value_grid)
+      find_diagonals(value_grid)
+        if chip_count(value_grid) == "Y" || chip_count(value_grid) == "R"
           return true
         else
           return false
         end
+      if find_diagonals(value_grid) == "Y" || find_diagonals == "R"
+        return true
+      else
+        return false
+      end
     end
-    def extract_winning_values(winning_moves) #locates the value in each Cell object
-      winning_moves.map{|cell| cell.value}
+    def make_winning_values_readable
+      value_rows = []
+      winning_moves.each do |moveset|
+        value_rows << extract_winning_values(moveset)
+      end
+    end
+    def extract_winning_values(moveset) #locates the value in each Cell object
+      moveset.map{|cell| cell.value}
     end
     def winning_moves #currently set so that the columns and rows(transpose) will be available
       grid + grid.transpose
