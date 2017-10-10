@@ -13,11 +13,7 @@ module Connect_Four
         end
       end
     end
-  end
-
-  describe Computer do
-  end
-
+  endj
   describe Board do
     describe "#initialize" do
       context "when a new board is created" do

@@ -7,13 +7,6 @@ module Connect_Four
       @color = input.fetch(:color)
     end
   end
-
-  class Computer
-    def initialize
-
-    end
-  end
-
   class Board
     attr_accessor :grid
     def initialize(input = {}) #fetches grid from #default_grid or builds grid from supplied data
@@ -33,13 +26,12 @@ module Connect_Four
         end
       end
     end
-    def find_diagonals(value_rows)
+    def find_diagonals(value_rows) #searches for diagonal wins
       yellow_count = 0
       red_count = 0
       value_rows.each_with_index do |row, y|
         row.each_with_index do |cell, x|
           if cell == :Y
-            puts "Inside both loops, first if statement"
             yellow_count += 1
             if cell == value_rows[(y + 1)][(x + 1)]
               yellow_count += 1
@@ -72,7 +64,6 @@ module Connect_Four
             red_count = 0
           end
           if cell == :R
-            puts "Inside both loops, first if statement"
             red_count += 1
             yellow_count = 0
             if cell == value_rows[(y + 1)][(x + 1)]
@@ -114,24 +105,19 @@ module Connect_Four
         return "R"
       end
     end
-    def chip_count (value_rows)
+    def chip_count (value_rows) #finds horizontal and vertical wins, sends value_rows to find_diagonals
       yellow_count = 0
       red_count = 0
-
-
       value_rows.reverse.each do |row|
         next if row.count("_") == 7
         if row.size == 6 && row.count("_") == 6
           next
         end
-
           row.each do |cell|
             if cell == :Y || cell == :R
               if cell == :Y
                 yellow_count += 1
                 red_count = 0
-
-
                 if yellow_count == 4
                   return "Y"
                 end
@@ -139,7 +125,6 @@ module Connect_Four
               if cell == :R
                 red_count += 1
                 yellow_count = 0
-
                 if red_count == 4
                   return "R"
                 end
@@ -159,7 +144,7 @@ module Connect_Four
         return "R"
       end
     end
-    def winner?
+    def winner? #returns true if game is won, false if not
       value_rows = []
       winning_moves.each do |moveset|
         value_rows << extract_winning_values(moveset)
@@ -188,13 +173,14 @@ module Connect_Four
   end
 
   class Game
-    attr_accessor :board
+    attr_accessor :board, :players
     def initialize(players= ["Cody"]) #initiates a new board and accepts an Array of player hashes
       @board = Board.new
-      @player1 = players[0]
-      @player2 = players[1]
+      @players = players
+      @player1 = @players[0]
+      @player2 = @players[1]
     end
-    def play
+    def play #plays the game
       guesses = 0
       while true
         if guesses.even?
